@@ -14,7 +14,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 print("Enter all the discussion board urls to clear separated by a comma")
 
-# clean input and save as a list
+# remove any spaces in the url and separate along the comma
+# into a list. Most urls don't have commas, but they can contain them
 url_to_clear = str(input("URLs: ")).replace(" ", "").split(",")
 driver = webdriver.Chrome()
 
@@ -48,7 +49,9 @@ for url_index in range(0, len(url_to_clear)):
             and thread.get_attribute("href").find("discussions/threads") != -1
         ):
             links_to_visit.append(thread.get_attribute("href"))
-print(len(links_to_visit))
+
 # visit all the discussion links
+# since the user is logged in, this clears it for their account
+
 for thread in links_to_visit:
     driver.get(thread)
